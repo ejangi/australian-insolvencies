@@ -1,5 +1,7 @@
 FROM google/cloud-sdk:alpine
 
+WORKDIR /usr/src/app
+
 ENV PORT 8080
 EXPOSE $PORT
 
