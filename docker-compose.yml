@@ -6,9 +6,13 @@ services:
     command: python3 /usr/src/app/app.py
     volumes:
       - ./src:/usr/src/app
+      - ./service-account.json:/tmp/service-account.json
     environment: 
       PORT: 3000
-      TABLE_ID: data-monitoring-25519:data_gov_au.australian_insolvencies
+      TABLE_ID_RAW: "data_gov_au.australian_insolvencies_raw"
+      TABLE_ID: "data_gov_au.australian_insolvencies"
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/service-account.json
+      LOAD_KEY: abc123
     ports:
       - 3000:3000
     restart: always
