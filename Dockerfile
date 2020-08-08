@@ -22,4 +22,4 @@ RUN mkdir -p /usr/src/app
 
 COPY src/ ./
 
-CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
+CMD exec gunicorn --chdir $APP_HOME --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
