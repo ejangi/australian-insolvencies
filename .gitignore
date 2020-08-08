@@ -132,4 +132,4 @@ dmypy.json
 .DS_Store
 
 # Google Cloud Service Accounts
-data-monitoring-25519-8c16e7a347d6.json
+service-account.json
