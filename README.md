@@ -9,6 +9,7 @@
 1) Create a *raw* table where the data will be uploaded to, using the following schema:
 
 ```json
+[{"name":"Quarter","type":"STRING","mode":"NULLABLE"},{"name":"Total_debtors_entering_a_business_related_personal_insolvency__NSW","type":"INTEGER","mode":"NULLABLE"},{"name":"Total_debtors_entering_a_business_related_personal_insolvency__ACT","type":"INTEGER","mode":"NULLABLE"},{"name":"Total_debtors_entering_a_business_related_personal_insolvency__Vic","type":"INTEGER","mode":"NULLABLE"},{"name":"Total_debtors_entering_a_business_related_personal_insolvency__Qld","type":"INTEGER","mode":"NULLABLE"},{"name":"Total_debtors_entering_a_business_related_personal_insolvency__SA","type":"INTEGER","mode":"NULLABLE"},{"name":"Total_debtors_entering_a_business_related_personal_insolvency__NT","type":"INTEGER","mode":"NULLABLE"},{"name":"Total_debtors_entering_a_business_related_personal_insolvency__WA","type":"INTEGER","mode":"NULLABLE"},{"name":"Total_debtors_entering_a_business_related_personal_insolvency__Tas","type":"INTEGER","mode":"NULLABLE"},{"name":"Total_debtors_entering_a_business_related_personal_insolvency__Other","type":"INTEGER","mode":"NULLABLE"},{"name":"Total_debtors_entering_a_business_related_personal_insolvency__Australia","type":"INTEGER","mode":"NULLABLE"}]
 ```
 
 2) Create a scheduled query that deduplicates the raw data into a fresh table, using this query
@@ -34,4 +35,6 @@ WHERE row_number = 1
 ORDER BY dedupe.Quarter ASC
 ```
 
-3) Set the environment variables for `TABLE_ID` and `TABLE_ID_RAW`.
+3) Set the environment variables for `TABLE_ID` and `TABLE_ID_RAW` and `LOAD_KEY`.
+
+4) Schedule the load using `Cloud Scheduler`.
