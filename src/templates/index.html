@@ -3,19 +3,16 @@
 <head>
     <title>Australian Insolvencies</title>
     <style>
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; }
         body { background: white; font-family: Helvetica, Arial, sans-serif }
-        .main { margin-left: auto; margin-right: auto; padding: 30px; max-width: 1200px; }
+        .main { display: flex; justify-content: center; align-items: stretch; align-content: stretch; width: 100%; height: 100%; }
         .alert { padding: 15px 30px; }
         .alert-error { border: 2px solid red; color: red; background-color: #FCC; }
-        #chart { min-height: 250px; }
-
-        @media(min-width: 720px) { #chart { min-height: 500px; } }
-        @media(min-width: 920px) { #chart { min-height: 700px; } }
+        #chart { width: 100%; }
     </style>
 </head>
 <body>
     <div class="main">
-        <h1>Australian Insolvencies</h1>
         <div id="chart">
             loading...
         </div>
@@ -23,6 +20,12 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         google.charts.load('current', {'packages':['corechart']});
+        var raw_data,
+            options = {
+                title: 'Australian Insolvencies',
+                hAxis: {title: 'Quarter',  titleTextStyle: {color: '#333'}},
+                vAxis: {minValue: 0}
+            };
 
         function drawChart(raw) {
             var keys = ['Quarter', 'Australia', 'ACT', 'NSW', 'NT', 'QLD', 'SA', 'TAS', 'VIC', 'WA'],
@@ -44,17 +47,19 @@
                 ]);
             });
 
-            var data = google.visualization.arrayToDataTable(d);
-    
-            var options = {
-                title: 'Australian Insolvencies',
-                hAxis: {title: 'Quarter',  titleTextStyle: {color: '#333'}},
-                vAxis: {minValue: 0}
-            };
-    
+            raw_data = d;
+            render();
+        }
+
+        function render() {
+            console.log('Resize...');
+            if (google.visualization == undefined) return;
+            var data = google.visualization.arrayToDataTable(raw_data);
             var chart = new google.visualization.AreaChart(document.getElementById('chart'));
             chart.draw(data, options);
         }
+
+        window.addEventListener('resize', render);
 
         fetch('/data.json')
             .then(response => { 
