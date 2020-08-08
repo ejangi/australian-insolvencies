@@ -1,7 +1,10 @@
 FROM google/cloud-sdk:alpine
 
-WORKDIR /usr/src/app
+ENV APP_HOME /usr/src/app
+WORKDIR $APP_HOME
 
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 ENV PORT 8080
 EXPOSE $PORT
 
@@ -17,7 +20,6 @@ RUN apk --update add openssl ca-certificates py-openssl wget libffi-dev openssl-
 RUN pip3 install --upgrade Flask gunicorn google-cloud-bigquery wget
 RUN mkdir -p /usr/src/app
 
-COPY src/app.py /usr/src/app/app.py
-COPY src/templates /usr/src/app/templates
+COPY src/ ./
 
-CMD PYTHONPATH=`pwd`/.. exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
