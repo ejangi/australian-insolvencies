@@ -20,4 +20,4 @@ RUN mkdir -p /usr/src/app
 COPY src/app.py /usr/src/app/app.py
 COPY src/templates /usr/src/app/templates
 
-CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
+CMD PYTHONPATH=`pwd`/.. exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
