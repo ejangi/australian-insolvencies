@@ -1,0 +1,14 @@
+version: '3.2'
+services:
+  app:
+    build:
+      context: .
+    command: python3 /usr/src/app/app.py
+    volumes:
+      - ./src:/usr/src/app
+    environment: 
+      PORT: 3000
+      TABLE_ID: data-monitoring-25519:data_gov_au.australian_insolvencies
+    ports:
+      - 3000:3000
+    restart: always
