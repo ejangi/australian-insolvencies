@@ -16,16 +16,39 @@ def json():
     ret = []
     for row in results:
         r = {
+            "Year":row["Year"],
+            "Month":row["Month"],
             "Quarter":row["Quarter"],
-            "Australia":row["Australia"],
-            "ACT":row["ACT"],
             "NSW":row["NSW"],
-            "NT":row["NT"],
+            "ACT":row["ACT"],
+            "VIC":row["VIC"],
             "QLD":row["QLD"],
             "SA":row["SA"],
+            "NT":row["NT"],
+            "WA":row["WA"],
             "TAS":row["TAS"],
-            "VIC":row["VIC"],
-            "WA":row["WA"]
+            "Other":row["Other"],
+            "Australia":row["Australia"],
+            "NSWSinceLastQuarter":row["NSWSinceLastQuarter"],
+            "NSWSinceLastYear":row["NSWSinceLastYear"],
+            "ACTSinceLastQuarter":row["ACTSinceLastQuarter"],
+            "ACTSinceLastYear":row["ACTSinceLastYear"],
+            "VICSinceLastQuarter":row["VICSinceLastQuarter"],
+            "VICSinceLastYear":row["VICSinceLastYear"],
+            "QLDSinceLastQuarter":row["QLDSinceLastQuarter"],
+            "QLDSinceLastYear":row["QLDSinceLastYear"],
+            "SASinceLastQuarter":row["SASinceLastQuarter"],
+            "SASinceLastYear":row["SASinceLastYear"],
+            "NTSinceLastQuarter":row["NTSinceLastQuarter"],
+            "NTSinceLastYear":row["NTSinceLastYear"],
+            "WASinceLastQuarter":row["WASinceLastQuarter"],
+            "WASinceLastYear":row["WASinceLastYear"],
+            "TASSinceLastQuarter":row["TASSinceLastQuarter"],
+            "TASSinceLastYear":row["TASSinceLastYear"],
+            "OtherSinceLastQuarter":row["OtherSinceLastQuarter"],
+            "OtherSinceLastYear":row["OtherSinceLastYear"],
+            "AustraliaSinceLastQuarter":row["AustraliaSinceLastQuarter"],
+            "AustraliaSinceLastYear":row["AustraliaSinceLastYear"]
         }
         ret.append(r)
     return jsonify(ret)
