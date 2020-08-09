@@ -23,5 +23,5 @@ RUN mkdir -p /usr/src/app
 
 COPY src/ ./
 
-# CMD gunicorn --capture-output --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
-CMD python3 /usr/src/app/app.py
+CMD gunicorn --capture-output --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
+# CMD python3 /usr/src/app/app.py
