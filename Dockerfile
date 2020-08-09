@@ -15,6 +15,7 @@ ENV DATAFILE https://data.gov.au/data/dataset/d1151a1d-2f4e-4519-9d6f-103032dae3
 ENV TABLE_ID_RAW ""
 ENV TABLE_ID ""
 ENV LOAD_KEY ""
+ENV URL ""
 
 RUN apk --update add openssl ca-certificates py-openssl wget libffi-dev openssl-dev python3-dev build-base
 RUN pip3 install --upgrade Flask gunicorn google-cloud-bigquery wget

@@ -58,9 +58,10 @@ def json():
 def feed(type='Australia'):
     if type not in ["Australia", "QLD", "NSW", "ACT", "VIC", "TAS", "NT", "SA", "WA", "Other"]:
         return jsonify({"status":"forbidden","message":"Invalid location."}), 403
+    url = os.environ.get('URL')
     table_id = os.environ.get('TABLE_ID')
     results = get_results(table_id, True)
-    return Response(render_template('rss.xml', type=type, results=results), mimetype='text/xml')
+    return Response(render_template('rss.xml', url=url, type=type, results=results), mimetype='text/xml')
 
 @app.route('/load')
 def load():
