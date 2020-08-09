@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+  <title>Australian Insolvencies: {{ type }}</title>
+  <link></link>
+  <description></description>
+  {% for row in results %}
+  <item>
+    <title>{{ row['Quarter'] }}</title>
+    <link></link>
+    <description><![CDATA[
+    <table>
+        <thead>
+            <tr>
+                <th>Location</th>
+                <th>Insolvencies</th>
+                <th>Since Last Quarter</th>
+                <th>Sincle Last Year</th>
+            <tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>{{ type }}<th>
+                <td>{{ row[type] }}</td>
+                <td>{{ row[type + 'SinceLastQuarter'] | round(2) }}%</td>
+                <td>{{ row[type + 'SinceLastYear'] | round(2) }}%</td>
+            </tr>
+        </tbody>
+    </table>
+    ]]></description>
+  </item>
+  {% endfor %}
+</channel>
+</rss> 

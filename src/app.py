@@ -1,6 +1,6 @@
 import os
 from insolvencies import load_to_bq, get_results
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, Response
 
 app = Flask(__name__)
 
@@ -51,7 +51,16 @@ def json():
             "AustraliaSinceLastYear":row["AustraliaSinceLastYear"]
         }
         ret.append(r)
-    return jsonify(ret)
+    return jsonify(ret), 200
+
+@app.route('/feed')
+@app.route('/feed/<type>')
+def feed(type='Australia'):
+    if type not in ["Australia", "QLD", "NSW", "ACT", "VIC", "TAS", "NT", "SA", "WA", "Other"]:
+        return jsonify({"status":"forbidden","message":"Invalid location."}), 403
+    table_id = os.environ.get('TABLE_ID')
+    results = get_results(table_id, True)
+    return Response(render_template('rss.xml', type=type, results=results), mimetype='text/xml')
 
 @app.route('/load')
 def load():
@@ -59,16 +68,16 @@ def load():
     key = request.args.get("key")
 
     if key != load_key:
-        return {"status":"forbidden","message":"Invalid API Key"}
+        return jsonify({"status":"forbidden","message":"Invalid API Key"}), 403
 
     table_id_raw = os.environ.get('TABLE_ID_RAW')
     data_file = os.environ.get('DATAFILE')
     source_file = "/tmp/aus.csv"
 
     if load_to_bq(data_file, source_file, table_id_raw):
-        return {"status":"ok"}
+        return jsonify({"status":"ok"}), 200
     else:
-        return {"status":"failed","message":"The load failed."}
+        return jsonify({"status":"failed","message":"The load failed."}), 500
 
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0',port=int(os.environ.get('PORT', 8080)))

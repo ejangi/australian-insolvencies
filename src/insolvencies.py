@@ -3,8 +3,10 @@ from google.cloud import bigquery
 
 client = bigquery.Client()
 
-def get_results(table_id):
-    sql = "SELECT Year, Month, Quarter, NSW, ACT, VIC, QLD, SA, NT, WA, TAS, Other, Australia, NSWSinceLastQuarter, NSWSinceLastYear, ACTSinceLastQuarter, ACTSinceLastYear, VICSinceLastQuarter, VICSinceLastYear, QLDSinceLastQuarter, QLDSinceLastYear, SASinceLastQuarter, SASinceLastYear, NTSinceLastQuarter, NTSinceLastYear, WASinceLastQuarter, WASinceLastYear, TASSinceLastQuarter, TASSinceLastYear, OtherSinceLastQuarter, OtherSinceLastYear, AustraliaSinceLastQuarter, AustraliaSinceLastYear FROM data_gov_au.australian_insolvencies ORDER BY Quarter ASC"
+def get_results(table_id, reverse=False):
+    sql = "SELECT Year, Month, Quarter, NSW, ACT, VIC, QLD, SA, NT, WA, TAS, Other, Australia, NSWSinceLastQuarter, NSWSinceLastYear, ACTSinceLastQuarter, ACTSinceLastYear, VICSinceLastQuarter, VICSinceLastYear, QLDSinceLastQuarter, QLDSinceLastYear, SASinceLastQuarter, SASinceLastYear, NTSinceLastQuarter, NTSinceLastYear, WASinceLastQuarter, WASinceLastYear, TASSinceLastQuarter, TASSinceLastYear, OtherSinceLastQuarter, OtherSinceLastYear, AustraliaSinceLastQuarter, AustraliaSinceLastYear FROM data_gov_au.australian_insolvencies ORDER BY Quarter"
+    if reverse:
+        sql += " DESC"
     return client.query(sql)
 
 def load_to_bq(data_file, source_file, table_id):
