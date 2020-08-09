@@ -83,6 +83,11 @@ WHERE row_number = 1
 ORDER BY dedupe.Year ASC, dedupe.Month ASC
 ```
 
-3) Set the environment variables for `TABLE_ID` and `TABLE_ID_RAW` and `LOAD_KEY`.
+3) Set the environment variables for:
+
+- **`TABLE_ID`** (<dataset-id>.<table-id> — e.g. `data_gov_au.australian_insolvencies`)
+- **`TABLE_ID_RAW`** (same as above, but your raw table where we ingest records first)
+- **`LOAD_KEY`** (create a long secret that will be used to make sure unauthorised people don't trigger an ingest)
+- **`URL`** (include the full URL of your app so we can inject it into the RSS feed. e.g. https://australian-insolvencies-230jwlk32j2l-ts.a.run.app).
 
 4) Schedule the load using `Cloud Scheduler`.
