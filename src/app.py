@@ -54,6 +54,12 @@ def json():
     return jsonify(ret), 200
 
 @app.route('/feed')
+def feed_all():
+    url = os.environ.get('URL')
+    table_id = os.environ.get('TABLE_ID')
+    results = get_results(table_id, True)
+    return Response(render_template('rss-all.xml', url=url, results=results), mimetype='text/xml')
+
 @app.route('/feed/<type>')
 def feed(type='Australia'):
     if type not in ["Australia", "QLD", "NSW", "ACT", "VIC", "TAS", "NT", "SA", "WA", "Other"]:

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Australian Insolvencies</title>
+  <link>{{ url }}/feed/</link>
+  <description></description>
+  <atom:link href="{{ url }}/feed/" rel="self" type="application/rss+xml" />
+  {% for row in results %}
+  <item>
+    <title>{{ row['Quarter'] }}</title>
+    <link>{{ url }}/#{{ row['Quarter'] }}</link>
+    <description><![CDATA[
+    <table cellspacing="0" cellpadding="5" style="border-collapse: collapse; border: 1px solid #CCC;">
+        <caption style="border-collapse:collapse; border: 1px solid #CCC; border-bottom-width: 0; padding: 5px;">Australian Insolvencies: {{ row['Quarter'] }}</caption>
+        <thead>
+            <tr style="border-collapse: collapse; border: 1px solid #CCC;">
+                <th align="right" style="background-color: #DDD; border-collapse: collapse; border: 1px solid #CCC;">Location</th>              
+                <th align="right" style="background-color: #DDD; border-collapse: collapse; border: 1px solid #CCC;">Insolvencies</th>
+                <th align="right" style="background-color: #DDD; border-collapse: collapse; border: 1px solid #CCC;">Since Last Quarter</th>
+                <th align="right" style="background-color: #DDD; border-collapse: collapse; border: 1px solid #CCC;">Sincle Last Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for state in ['Australia', 'ACT', 'NSW', 'NT', 'QLD', 'SA', 'TAS', 'VIC', 'WA', 'Other'] %}
+            {% if loop.index0 % 2 == 0 %}
+            <tr style="border-collapse: collapse; border: 1px solid #CCC;">
+            {% else %}
+            <tr style="background-color: #EEE; border-collapse: collapse; border: 1px solid #CCC;">
+            {% endif %}
+                <th align="right" style="border-collapse: collapse; border: 1px solid #CCC;">{{ state }}</th>
+                <td align="right" style="border-collapse: collapse; border: 1px solid #CCC;">{{ row[state] }}</td>
+                <td align="right" style="border-collapse: collapse; border: 1px solid #CCC;{% if row[state + 'SinceLastQuarter'] < 0 %} color: green;{% else %} color: red;{% endif %}">{{ row[state + 'SinceLastQuarter'] | round(2) }}%</td>
+                <td align="right" style="border-collapse: collapse; border: 1px solid #CCC;{% if row[state + 'SinceLastYear'] < 0 %} color: green;{% else %} color: red;{% endif %}">{{ row[state + 'SinceLastYear'] | round(2) }}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    ]]></description>
+    <guid>{{ url }}/#{{ row['Quarter'] }}</guid>
+  </item>
+  {% endfor %}
+</channel>
+</rss> 
