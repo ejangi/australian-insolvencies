@@ -40,8 +40,10 @@
         var raw_data,
             options = {
                 title: 'Australian Insolvencies',
+                legend: {position: 'bottom'},
                 hAxis: {title: 'Quarter',  titleTextStyle: {color: '#333'}},
-                vAxis: {minValue: 0}
+                vAxis: {minValue: 0},
+                chartArea:{ top:'12%', right:'12%', bottom:'12%', left:'12%', width:'75%', height:'75%'}
             };
 
         function drawChart(raw) {
