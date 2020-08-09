@@ -5,16 +5,33 @@
     <style>
         html, body { margin: 0; padding: 0; width: 100%; height: 100%; }
         body { background: white; font-family: Helvetica, Arial, sans-serif }
-        .main { display: flex; justify-content: center; align-items: stretch; align-content: stretch; width: 100%; height: 100%; }
+        .main, #chart { display: flex; flex-direction: column; justify-content: center; align-items: center; align-content: stretch; width: 100%; height: 100%; }
         .alert { padding: 15px 30px; }
         .alert-error { border: 2px solid red; color: red; background-color: #FCC; }
-        #chart { width: 100%; }
+        #loader { display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: #3498DB; border-radius: 10px; width: 100px; height: 100px; }
+        #feeds { display: flex; justify-content: center; align-items: center; padding: 30px; }
+        #feeds img, #feeds a { padding: 5px; }
+        #feeds a:link, #feeds a:visited { color: #3498DB; text-decoration: none; }
+        #feeds a:hover, #feeds a:active { text-decoration: underline; }
     </style>
 </head>
 <body>
     <div class="main">
         <div id="chart">
-            loading...
+            <div id="loader"><img src="images/loader.svg" alt="loading..." width="60"></div>
+        </div>
+        <div id="feeds">
+            <img src="images/rss.svg" alt="RSS Feed" width="30">
+            <a href="{{ url }}/feed">All</a>
+            <a href="{{ url }}/feed/Australia">Australia</a>
+            <a href="{{ url }}/feed/ACT">ACT</a>
+            <a href="{{ url }}/feed/NSW">NSW</a>
+            <a href="{{ url }}/feed/NT">NT</a>
+            <a href="{{ url }}/feed/QLD">QLD</a>
+            <a href="{{ url }}/feed/SA">SA</a>
+            <a href="{{ url }}/feed/TAS">TAS</a>
+            <a href="{{ url }}/feed/VIC">VIC</a>
+            <a href="{{ url }}/feed/WA">WA</a>
         </div>
     </div>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

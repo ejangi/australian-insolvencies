@@ -1,6 +1,6 @@
 import os
 from insolvencies import load_to_bq, get_results
-from flask import Flask, render_template, request, jsonify, Response
+from flask import Flask, render_template, request, jsonify, Response, send_from_directory
 
 app = Flask(__name__)
 
@@ -8,6 +8,10 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/images/<path:path>')
+def send_js(path):
+    return send_from_directory('images', path)
 
 @app.route('/data.json')
 def json():
