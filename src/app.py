@@ -1,9 +1,15 @@
 import os
+import datetime
 from insolvencies import load_to_bq, get_results
 from flask import Flask, render_template, request, jsonify, Response, send_from_directory
 
 app = Flask(__name__)
 
+@app.template_filter('formatPubDate')
+def format_pubDate(value):
+    sp = value.split('-')
+    dt = datetime.datetime(int(sp[0]), int(sp[1]), 1)
+    return dt.strftime("%a, %d %b %Y %H:%M:%S +0000");
 
 @app.route('/')
 def index():

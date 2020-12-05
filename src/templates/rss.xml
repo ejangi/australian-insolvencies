@@ -29,6 +29,7 @@
     </table>
     ]]></description>
     <guid>{{ url }}/#{{ row['Quarter'] }}</guid>
+    <pubDate>{{ row['Quarter']|formatPubDate }}</pubDate>
   </item>
   {% endfor %}
 </channel>
