@@ -4,7 +4,7 @@
   <title>Australian Insolvencies</title>
   <link>{{ url }}/feed/</link>
   <description></description>
-  <atom:link href="{{ url }}/feed/" rel="self" type="application/rss+xml" />
+  <atom:link href="{{ url }}/feed" rel="self" type="application/rss+xml" />
   {% for row in results %}
   <item>
     <title>{{ row['Quarter'] }}</title>
